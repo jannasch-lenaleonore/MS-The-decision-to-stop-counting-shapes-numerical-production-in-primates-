@@ -26,12 +26,7 @@ stochastic, so a refit of the RT model in particular settles on a different
 optimum and shifts Table 1.
 
 `run_all.m` sets up the paths itself, so it works from any working directory,
-and it prints a banner before each stage. Most of the manuscript's numbers are
-**printed, not plotted**, so capture the log:
-
-```matlab
->> diary('run_all_log.txt'); run_all; diary off
-```
+and it prints a banner before each stage. 
 
 Every stage is also an ordinary script that can be run on its own — see the
 order in `run_all.m`.
@@ -40,7 +35,6 @@ order in `run_all.m`.
 
 - MATLAB R2023a or later with the Statistics and Machine Learning Toolbox
   (`quantile`, `signrank`, `corr`, `fminsearch`, `boxplot`).
-- No other dependencies, no toolboxes beyond that, nothing to install.
 
 The behavioural data are included in `data/`: `bhv_data_tbl_m1.mat` (Monkey 1,
 36 sessions) and `bhv_data_tbl_m2.mat` (Monkey 2, 40 sessions), each holding a
@@ -78,33 +72,6 @@ text are printed to the console by the script named here.
 `figures/diagnostics/` holds the three figures `compare_rt_fit_MS.m` draws of
 the RT comparison. They are the visual form of Table 1 and are not manuscript
 panels; `figures/` itself contains manuscript panels only.
-
-**Not in this repository.** Fig. 1 (task schematic), Fig. 2 (response
-functions by stimulus format), Fig. 3A–D (RT by numerosity, correct vs error)
-and Supplementary Fig. 1 (performance by format, condition and temporal
-arrangement) come from the behavioural analysis of the full session records,
-not from the model. This repository is the code behind the modelling, which is
-what the manuscript's Data and Code Availability statement points to.
-
-## Pipeline
-
-| Stage | Script | Writes | Runtime |
-|---|---|---|---|
-| 1 | `fit_diffusion_mle_MS.m` | `results/params_perf.mat` | ~80 min |
-| 2 | `fit_gaussian_mle_MS.m` | `results/params_gauss.mat` | seconds |
-| 3 | `cv_models_MS.m` | `results/cv_results.mat` | hours |
-| 4 | `cv_pooled_vs_animal_MS.m` | `results/cv_pooled_vs_animal.mat` | hours |
-| 5 | `model_comparison_fig4.m` | Fig. 4C, 4D, 4E + tables | seconds |
-| 6 | `session_variability_MS.m` | prints only | seconds |
-| 7 | `schematic_row2_MS.m` | Fig. 4B | seconds |
-| 8 | `diffusion_model_fig4.m` | Fig. 3E, 4A, 4F, 4G + RT tests | ~40 s |
-| 9 | `fit_diffusion_rt_MS.m` | `results/params_rt.mat` | ~20 min |
-| 10 | `compare_rt_fit_MS.m` | Table 1 + diagnostics | ~15 s |
-
-Stages 5–8 and 10 only read the `.mat` files, so with `results/` populated (as
-shipped) a bare `run_all` reproduces every figure and every table in under a
-minute. Stages 1–4 and 9 are the ones `run_all('refit')` adds; their runtimes
-are the ones quoted in each script's own header.
 
 Two helper functions in `helpers/` are shared by the RT scripts:
 `run_diffusion_sim.m` (one vectorised sweep of the model) and `compute_g2.m`
