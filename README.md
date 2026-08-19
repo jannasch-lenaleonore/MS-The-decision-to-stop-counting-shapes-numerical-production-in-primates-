@@ -15,7 +15,7 @@ panels, tables and numbers reported in the manuscript.
 
 ```matlab
 >> run_all           % every figure and every table, from the fitted
-                     % parameters shipped in results/ (under a minute)
+                     % parameters shipped in results/ 
 >> run_all('refit')  % refit everything from the raw data first, overwriting
                      % results/ (several hours)
 ```
