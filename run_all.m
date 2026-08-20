@@ -3,7 +3,7 @@ function run_all(varargin)
 %          responsible for in the manuscript
 %
 %   run_all           redraws every figure and reprints every table from the
-%                     fitted parameters shipped in results/ (under a minute).
+%                     fitted parameters shipped in results.
 %   run_all('refit')  refits everything from the raw data first, overwriting
 %                     results/, then does the same (several hours — the
 %                     cross-validation alone runs for hours)
